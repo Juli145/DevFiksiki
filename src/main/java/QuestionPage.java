@@ -12,7 +12,7 @@ public class QuestionPage {
 
     @Before
     public void init() {
-        System.setProperty("webdriver.chrome.driver", "D://JuliDirectory//Selenium drivers and jars//Drivers//chromedrivers/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver",".idea/drivers/chromedriver.exe");
         driver = new ChromeDriver();
         driver.get(Constant.QUESTION_PAGE_URL);
     }
