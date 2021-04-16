@@ -218,6 +218,9 @@ public class MethodsQ {
     @FindBy (id = "confirm-delete-question")
     private WebElement confirmDeleteQuestion;
 
+    @FindBy (css = "body > div.questions > div > div > div > p")
+    private WebElement messageNoQuestions;
+
 
     public void checkQuestionAdded (String text, String answer, String theme) {
         Assert.assertEquals("Text of question added is incorrect",
@@ -259,6 +262,11 @@ public class MethodsQ {
     public void deleteLastAddedQuestion () {
         getFirstQuestion().findElement(By.cssSelector("body > div.questions > div > div > div > div:nth-child(1) > button")).click();
         getConfirmDeleteQuestion().click();
+    }
+
+    public void checkLastQuestionTitle (String title) {
+        MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 1);
+        Assert.assertEquals(title, getFirstQuestion().findElement(By.className("question__text-box")).getText());
     }
 
 }
