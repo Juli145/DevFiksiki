@@ -165,6 +165,9 @@ public class MethodsQ {
     @FindBy (css = "body > div.questions > div > div > div > div:nth-child(1)")
     private WebElement firstQuestion;
 
+    @FindBy (css = "#question > div")
+    private WebElement questionBody;
+
     public void addTestQuestion () {
         getAddQuestionButton().click();
 

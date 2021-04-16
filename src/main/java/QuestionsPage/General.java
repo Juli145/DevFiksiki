@@ -5,6 +5,7 @@ import Driver.Methods;
 import Driver.MethodsQ;
 import org.junit.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.Select;
@@ -39,7 +40,8 @@ public class General {
         action.moveToElement(methodsQ.getAddQuestionButton()).build().perform();
         String hoverColor = methodsQ.getAddQuestionButton().getCssValue("background-color");
         Color color = Color.fromString(hoverColor);
-        Assert.assertEquals("#ffffff", color.asHex());
+        Assert.assertEquals("Hover color is incorrect",
+                "#ffffff", color.asHex());
     }
 
     @Test
@@ -64,12 +66,33 @@ public class General {
 
     @Test
     public void test6_check_questionElements() {
-        System.out.println(methodsQ.getFirstQuestion().findElement(By.cssSelector("#question > div")).getText());
+
+        Assert.assertEquals("Text of question added is incorrect",
+                "Test",
+                methodsQ.getFirstQuestion().findElement(By.className("question__text-box")).getText());
+        Assert.assertTrue("Field answer is not exist",
+                methodsQ.getFirstQuestion().findElement(By.className("question__answer-key")).isDisplayed());
+        Assert.assertEquals("Field answer is named incorrect ",
+                "Answer",
+                methodsQ.getFirstQuestion().findElement(By.className("question__answer-key")).getText());
+        Assert.assertEquals("Value of field answer is incorrect",
+                "True",
+                methodsQ.getFirstQuestion().findElement(By.className("question__answer-value")).getText());
+        Assert.assertTrue("Field theme is not exist",
+                methodsQ.getFirstQuestion().findElement(By.className("question__theme-key")).isDisplayed());
+        Assert.assertEquals("Field theme is named incorrect ",
+                "Theme",
+                methodsQ.getFirstQuestion().findElement(By.className("question__theme-value")).getText());
+        Assert.assertEquals("Value of field theme is incorrect",
+                "JS",
+                methodsQ.getFirstQuestion().findElement(By.className("question__theme-value")).getText());
+        Assert.assertTrue("Field time is not exist",
+                methodsQ.getFirstQuestion().findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div[3]/div[2]")).isDisplayed());
     }
 
 
-//    @After
-//    public void finish() {
-//        DriverConfig.quit();
-//    }
+    @After
+    public void finish() {
+        DriverConfig.quit();
+    }
 }
