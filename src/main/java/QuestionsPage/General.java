@@ -72,6 +72,18 @@ public class General {
         methodsQ.checkQuestionAdded("Test");
     }
 
+    @Test
+    public void test7_checkDeleteQuestionButton () throws InterruptedException {
+        methodsQ.addTestQuestion("Test");
+        Thread.sleep(300);
+        action.moveToElement(methodsQ.getFirstQuestion()).build().perform();
+        Assert.assertTrue("Button delete is not displayed",
+                methodsQ.getDeleteQuestionButton().isDisplayed());
+        action.moveToElement(methodsQ.getAddQuestionButton()).build().perform();
+        Assert.assertFalse( "Button delete is displayed",
+                methodsQ.getDeleteQuestionButton().isDisplayed());
+    }
+
     @After
     public void finish() {
         DriverConfig.quit();
