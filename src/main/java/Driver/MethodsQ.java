@@ -1,6 +1,8 @@
 package Driver;
 
 import lombok.Getter;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -168,9 +170,42 @@ public class MethodsQ {
     @FindBy (css = "#question > div")
     private WebElement questionBody;
 
-    public void addTestQuestion () {
+    public void addTestQuestion (String text) {
         getAddQuestionButton().click();
+        waitForVisibility(getCreateButtonNewQuestion(), 5);
+        getQuestionField().click();
+        getQuestionField().sendKeys(text);
+        getCreateButtonNewQuestion().click();
+    }
 
+    public void checkQuestionAdded (String text) {
+        Assert.assertEquals("Text of question added is incorrect",
+                text,
+                getFirstQuestion().findElement(By.className("question__text-box")).getText());
+        Assert.assertTrue("Field answer is not exist",
+                getFirstQuestion().findElement(By.className("question__answer-key")).isDisplayed());
+        Assert.assertEquals("Field answer is named incorrect ",
+                "Answer",
+                getFirstQuestion().findElement(By.className("question__answer-key")).getText());
+        Assert.assertEquals("Value of field answer is incorrect",
+                "true",
+                getFirstQuestion().findElement(By.className("question__answer-value")).getText());
+        Assert.assertTrue("Field theme is not exist",
+                getFirstQuestion().findElement(By.className("question__theme-key")).isDisplayed());
+        Assert.assertEquals("Field theme is named incorrect ",
+                "Theme",
+                getFirstQuestion().findElement(By.className("question__theme-key")).getText());
+        Assert.assertEquals("Value of field theme is incorrect",
+                "HTML",
+                getFirstQuestion().findElement(By.className("question__theme-value")).getText());
+        Assert.assertTrue("Field time is not exist",
+                getFirstQuestion().findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div[3]/div[2]")).isDisplayed());
+    }
+
+    public void checkTextOfQuestionAdded (String text) {
+        Assert.assertEquals("Text of question added is incorrect or question does not exist",
+                text,
+                getFirstQuestion().findElement(By.className("question__text-box")).getText());
     }
 
 }

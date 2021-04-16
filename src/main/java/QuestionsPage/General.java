@@ -4,8 +4,6 @@ import Driver.DriverConfig;
 import Driver.Methods;
 import Driver.MethodsQ;
 import org.junit.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.Select;
@@ -65,31 +63,14 @@ public class General {
     }
 
     @Test
-    public void test6_check_questionElements() {
-
-        Assert.assertEquals("Text of question added is incorrect",
-                "Test",
-                methodsQ.getFirstQuestion().findElement(By.className("question__text-box")).getText());
-        Assert.assertTrue("Field answer is not exist",
-                methodsQ.getFirstQuestion().findElement(By.className("question__answer-key")).isDisplayed());
-        Assert.assertEquals("Field answer is named incorrect ",
-                "Answer",
-                methodsQ.getFirstQuestion().findElement(By.className("question__answer-key")).getText());
-        Assert.assertEquals("Value of field answer is incorrect",
-                "True",
-                methodsQ.getFirstQuestion().findElement(By.className("question__answer-value")).getText());
-        Assert.assertTrue("Field theme is not exist",
-                methodsQ.getFirstQuestion().findElement(By.className("question__theme-key")).isDisplayed());
-        Assert.assertEquals("Field theme is named incorrect ",
-                "Theme",
-                methodsQ.getFirstQuestion().findElement(By.className("question__theme-value")).getText());
-        Assert.assertEquals("Value of field theme is incorrect",
-                "JS",
-                methodsQ.getFirstQuestion().findElement(By.className("question__theme-value")).getText());
-        Assert.assertTrue("Field time is not exist",
-                methodsQ.getFirstQuestion().findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div[3]/div[2]")).isDisplayed());
+    public void test6_check_questionElements() throws InterruptedException {
+        methodsQ.addTestQuestion("Test");
+        Thread.sleep(500);
+        Select dropdown = new Select(methodsQ.getThemeFilter());
+        dropdown.selectByIndex(0);
+        Thread.sleep(300);
+        methodsQ.checkQuestionAdded("Test");
     }
-
 
     @After
     public void finish() {
