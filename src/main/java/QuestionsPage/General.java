@@ -70,6 +70,7 @@ public class General {
         dropdown.selectByIndex(0);
         Thread.sleep(300);
         methodsQ.checkQuestionAdded("Test", "true", "HTML");
+        methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
@@ -82,6 +83,7 @@ public class General {
         action.moveToElement(methodsQ.getAddQuestionButton()).build().perform();
         Assert.assertFalse( "Button delete is displayed",
                 methodsQ.getDeleteQuestionButton().isDisplayed());
+        methodsQ.deleteLastAddedQuestion();
     }
 
     @After

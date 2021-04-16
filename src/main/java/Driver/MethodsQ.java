@@ -208,6 +208,9 @@ public class MethodsQ {
     @FindBy (css = "body > div.questions > div > div > div > div:nth-child(1) > button")
     private WebElement deleteQuestionButton;
 
+    @FindBy (id = "confirm-delete-question")
+    private WebElement confirmDeleteQuestion;
+
 
     public void checkQuestionAdded (String text, String answer, String theme) {
         Assert.assertEquals("Text of question added is incorrect",
@@ -244,6 +247,12 @@ public class MethodsQ {
         Assert.assertEquals("Text of question added is incorrect or question does not exist",
                 text,
                 getFirstQuestion().findElement(By.className("question__text-box")).getText());
+    }
+
+    public void deleteLastAddedQuestion () throws InterruptedException {
+        getFirstQuestion().findElement(By.cssSelector("body > div.questions > div > div > div > div:nth-child(1) > button")).click();
+        Thread.sleep(200);
+        getConfirmDeleteQuestion().click();
     }
 
 }
