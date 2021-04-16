@@ -170,6 +170,9 @@ public class MethodsQ {
     @FindBy (css = "#question > div")
     private WebElement questionBody;
 
+    @FindBy (css = "body > div.questions > div > div > div > div:nth-child(1) > button")
+    private WebElement deleteQuestionButton;
+
     public void addTestQuestion (String text) {
         getAddQuestionButton().click();
         waitForVisibility(getCreateButtonNewQuestion(), 5);
