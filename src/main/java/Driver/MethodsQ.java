@@ -68,6 +68,10 @@ public class MethodsQ {
     @FindBy(css = "#close-modal-new-question")
     private WebElement cross;
 
+    public void openMW(){
+        getAddQuestionButton().click();
+        MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
+    }
 
 
 

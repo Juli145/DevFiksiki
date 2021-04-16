@@ -20,9 +20,17 @@ public class MWAddQuestion {
     }
 
     @Test
+    public void test_openMW(){
+        methodsQ.openMW();
+        Assert.assertTrue(
+                "Question field is not visible",
+                methodsQ.getQuestionField().isDisplayed()
+        );
+    }
+
+    @Test
     public void test_check_MW_elements(){
-        methodsQ.getAddQuestionButton().click();
-        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        methodsQ.openMW();
         Assert.assertTrue(
                 "Question field is not visible",
                 methodsQ.getQuestionField().isDisplayed()
@@ -68,4 +76,44 @@ public class MWAddQuestion {
                 methodsQ.getCross().isDisplayed()
         );
     }
+
+
+    @Test
+    public void test_255symbols_in_question_field_and_three_dots() throws InterruptedException {
+        methodsQ.openMW();
+        methodsQ.getQuestionField().click();
+        methodsQ.getQuestionField().sendKeys("анализ текста от ext.ru - это уникальный сервис, " +
+                "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
+                "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввf");
+        methodsQ.getCreateButtonNewQuestion().click();
+        Thread.sleep(300);
+        methodsQ.checkTextOfQuestionAdded("анализ текста от ext.ru - это уникальный сервис, не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя: счетчидллррррвввввf");
+    }
+
+    @Test
+    public void test_256symbols_in_question_field(){
+        methodsQ.openMW();
+        methodsQ.getQuestionField().click();
+        methodsQ.getQuestionField().sendKeys("анализ текста от ext.ru - это уникальный сервис, " +
+                "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
+                "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввfj");
+        methodsQ.getCreateButtonNewQuestion().click();
+        Assert.assertTrue(
+                "Cross is not visible",
+                methodsQ.getCross().isDisplayed()
+        );
+    }
+
+    @Test
+    public void test_topic_choice(){
+        methodsQ.openMW();
+
+    }
+
+
+
+    //    @After
+//    public void finish() {
+//        DriverConfig.quit();
+//    }
 }
