@@ -208,34 +208,34 @@ public class MethodsQ {
     @FindBy (css = "body > div.questions > div > div > div > div:nth-child(1) > button")
     private WebElement deleteQuestionButton;
 
-    public void addTestQuestion (String text) {
-        getAddQuestionButton().click();
-        waitForVisibility(getCreateButtonNewQuestion(), 5);
-        getQuestionField().click();
-        getQuestionField().sendKeys(text);
-        getCreateButtonNewQuestion().click();
-    }
 
-    public void checkQuestionAdded (String text) {
+    public void checkQuestionAdded (String text, String answer, String theme) {
         Assert.assertEquals("Text of question added is incorrect",
                 text,
                 getFirstQuestion().findElement(By.className("question__text-box")).getText());
+
         Assert.assertTrue("Field answer is not exist",
                 getFirstQuestion().findElement(By.className("question__answer-key")).isDisplayed());
+
         Assert.assertEquals("Field answer is named incorrect ",
                 "Answer",
                 getFirstQuestion().findElement(By.className("question__answer-key")).getText());
+
         Assert.assertEquals("Value of field answer is incorrect",
-                "true",
+                answer,
                 getFirstQuestion().findElement(By.className("question__answer-value")).getText());
+
         Assert.assertTrue("Field theme is not exist",
                 getFirstQuestion().findElement(By.className("question__theme-key")).isDisplayed());
+
         Assert.assertEquals("Field theme is named incorrect ",
                 "Theme",
                 getFirstQuestion().findElement(By.className("question__theme-key")).getText());
+
         Assert.assertEquals("Value of field theme is incorrect",
-                "HTML",
+                theme,
                 getFirstQuestion().findElement(By.className("question__theme-value")).getText());
+
         Assert.assertTrue("Field time is not exist",
                 getFirstQuestion().findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div[3]/div[2]")).isDisplayed());
     }

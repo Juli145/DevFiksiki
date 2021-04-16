@@ -64,17 +64,17 @@ public class General {
 
     @Test
     public void test6_check_questionElements() throws InterruptedException {
-        methodsQ.addTestQuestion("Test");
+        methodsQ.addQuestion("Test", "HTML", "", "");
         Thread.sleep(500);
         Select dropdown = new Select(methodsQ.getThemeFilter());
         dropdown.selectByIndex(0);
         Thread.sleep(300);
-        methodsQ.checkQuestionAdded("Test");
+        methodsQ.checkQuestionAdded("Test", "true", "HTML");
     }
 
     @Test
     public void test7_checkDeleteQuestionButton () throws InterruptedException {
-        methodsQ.addTestQuestion("Test");
+        methodsQ.addQuestion("Test", "HTML", "", "");
         Thread.sleep(300);
         action.moveToElement(methodsQ.getFirstQuestion()).build().perform();
         Assert.assertTrue("Button delete is not displayed",

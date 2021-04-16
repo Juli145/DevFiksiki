@@ -29,7 +29,7 @@ public class PageFunctionality {
         Assert.assertEquals("Weight:", methods.getFieldWeight().getText());
         Assert.assertEquals("Age:", methods.getFieldAge().getText());
         Assert.assertEquals("Birthday:", methods.getFieldBirthday().getText());
-        Assert.assertEquals("HOBBIES:", methods.getFieldHobbies().getText());
+        Assert.assertEquals("HOBBIES", methods.getFieldHobbies().getText());
     }
 
     @Test
