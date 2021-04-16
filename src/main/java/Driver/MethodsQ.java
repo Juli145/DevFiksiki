@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Locale;
+
 @Getter
 
 public class MethodsQ {
@@ -75,8 +77,7 @@ public class MethodsQ {
     }
 
     public void addQuestion(String text, String theme, String answer, String fileType){
-        String currentFileType = getFileTypeFilter().getText();
-        System.out.println(currentFileType);
+        String currentFileType = getFileTypeFilter().getAttribute("value");
         getAddQuestionButton().click();
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
         getQuestionField().click();
@@ -84,7 +85,7 @@ public class MethodsQ {
         Select dropdown = new Select(DriverConfig.driver.findElement(By.id("selectTheme")));
         dropdown.selectByVisibleText(theme);
         if(answer.equals("false")){ getAnswerFalse().click(); }
-        if(!fileType.equals(currentFileType)) {
+        if(!fileType.equals(currentFileType.toUpperCase())) {
             switch (fileType) {
                 case ("CSV"):
                     getCSV_checkBox().click();

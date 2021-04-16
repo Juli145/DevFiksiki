@@ -106,7 +106,7 @@ public class MWAddQuestion {
 
     @Test
     public void test_topic_choice(){
-        methodsQ.addQuestion("some text", "CSS", "true","CSV");
+        methodsQ.addQuestion("some text", "CSS", "true","JSON");
     }
 
 
