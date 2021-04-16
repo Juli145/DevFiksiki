@@ -4,6 +4,7 @@ import Driver.DriverConfig;
 import Driver.Methods;
 import Driver.MethodsQ;
 import org.junit.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.Select;
@@ -63,26 +64,39 @@ public class General {
     }
 
     @Test
-    public void test6_check_questionElements() throws InterruptedException {
+    public void test6_check_questionElements() {
         methodsQ.addQuestion("Test", "HTML", "", "");
-        Thread.sleep(500);
+        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
         Select dropdown = new Select(methodsQ.getThemeFilter());
         dropdown.selectByIndex(0);
-        Thread.sleep(300);
         methodsQ.checkQuestionAdded("Test", "true", "HTML");
         methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
-    public void test7_checkDeleteQuestionButton () throws InterruptedException {
+    public void test7_checkDeleteQuestionButton() {
         methodsQ.addQuestion("Test", "HTML", "", "");
-        Thread.sleep(300);
+        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
         action.moveToElement(methodsQ.getFirstQuestion()).build().perform();
         Assert.assertTrue("Button delete is not displayed",
                 methodsQ.getDeleteQuestionButton().isDisplayed());
         action.moveToElement(methodsQ.getAddQuestionButton()).build().perform();
-        Assert.assertFalse( "Button delete is displayed",
+        Assert.assertFalse("Button delete is displayed",
                 methodsQ.getDeleteQuestionButton().isDisplayed());
+        methodsQ.deleteLastAddedQuestion();
+    }
+
+    @Test
+    public void test8_checkMessage_TheAreNoQuestions() {
+        Assert.assertEquals("There are no questions", methodsQ.getMessageNoQuestions().getText());
+        Assert.assertTrue(methodsQ.getMessageNoQuestions().isDisplayed());
+    }
+
+    @Test
+    public void test9_checkTitle_textOfQuestion() {
+        String title = "Test test test";
+        methodsQ.addQuestion(title, "HTML", "", "");
+        methodsQ.checkLastQuestionTitle(title);
         methodsQ.deleteLastAddedQuestion();
     }
 
