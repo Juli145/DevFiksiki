@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 public class PageFunctionality {
     @Before
@@ -30,7 +29,7 @@ public class PageFunctionality {
         Assert.assertEquals("Weight:", methods.getFieldWeight().getText());
         Assert.assertEquals("Age:", methods.getFieldAge().getText());
         Assert.assertEquals("Birthday:", methods.getFieldBirthday().getText());
-        Assert.assertEquals("Hobbies:", methods.getFieldHobbies().getText());
+        Assert.assertEquals("HOBBIES:", methods.getFieldHobbies().getText());
     }
 
     @Test

@@ -70,6 +70,88 @@ public class EditingFunctionality {
         Assert.assertEquals("отдых", methods.getValueHobbies().getAttribute("value"));
     }
 
+    @Test
+    public void test7_edit_validationFieldHeight () {
+        methods.getEditButton().click();
+        methods.fieldClear_SendKeys_Save (methods.getValueHeight(), "");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueHeight(), "0");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueHeight(), "1000");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueHeight(), "171");
+        Assert.assertTrue(methods.getEditButton().isDisplayed());
+        Assert.assertEquals("171", methods.getValueHeight().getAttribute("value"));
+    }
+
+    @Test
+    public void test8_edit_validationFieldWeight () {
+        methods.getEditButton().click();
+        methods.fieldClear_SendKeys_Save (methods.getValueWeight(), "");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueWeight(), "0");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueWeight(), "1000");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueWeight(), "80");
+        Assert.assertTrue(methods.getEditButton().isDisplayed());
+        Assert.assertEquals("80", methods.getValueWeight().getAttribute("value"));
+    }
+
+    @Test
+    public void test9_edit_validationFieldName () {
+        methods.getEditButton().click();
+        methods.fieldClear_SendKeys_Save (methods.getFieldName(), "");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.getFieldName().sendKeys("Алоизий Бенджи Кобвеб Дартаньян Эгб");
+        methods.getSaveButton().click();
+        Assert.assertTrue(methods.getEditButton().isDisplayed());
+        Assert.assertEquals("Алоизий Бенджи Кобвеб Д", methods.getFieldName().getAttribute("value"));
+    }
+
+    @Test
+    public void test10_edit_validationFieldAge () {
+        methods.getEditButton().click();
+        methods.fieldClear_SendKeys_Save (methods.getValueAge(), "");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueAge(), "0");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueAge(), "1000");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueAge(), "22");
+        Assert.assertTrue(methods.getEditButton().isDisplayed());
+        Assert.assertEquals("22", methods.getValueAge().getAttribute("value"));
+    }
+
+    @Test
+    public void test11_edit_validationFieldHobbies () {
+        methods.getEditButton().click();
+        methods.fieldClear_SendKeys_Save (methods.getValueHobbies(), "");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.getValueHobbies().sendKeys("Дивитися фантастику, рибалити куховарити");
+        methods.getSaveButton().click();
+        Assert.assertTrue(methods.getEditButton().isDisplayed());
+        Assert.assertEquals("Дивитися фантастику, рибалити куховар", methods.getValueHobbies().getAttribute("value"));
+    }
+
+    @Test
+    public void test12_edit_validationFieldBirthday () {
+        methods.getEditButton().click();
+        methods.fieldClear_SendKeys_Save (methods.getValueBirthday(), "");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueBirthday(), "test");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueBirthday(), "12121998");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueBirthday(), "32.12.2000");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueBirthday(), "30.13.2000");
+        Assert.assertTrue(methods.getSaveButton().isDisplayed());
+        methods.fieldClear_SendKeys_Save (methods.getValueBirthday(), "30.12.2000");
+        Assert.assertFalse(methods.getSaveButton().isDisplayed());
+        Assert.assertEquals("30.12.2000", methods.getValueBirthday().getAttribute("value"));
+    }
+
 
     @After
     public void finish() {

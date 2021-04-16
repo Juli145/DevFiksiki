@@ -35,19 +35,19 @@ public class Methods {
     @FindBy (xpath = "//*[@id=\"team-name\"]")
     private WebElement fieldName;
 
-    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[1]")
+    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[3]")
     private WebElement fieldHeight;
 
-    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[2]")
+    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[4]")
     private WebElement fieldWeight;
 
-    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[3]")
+    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[5]")
     private WebElement fieldAge;
 
-    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[4]")
+    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[6]")
     private WebElement fieldBirthday;
 
-    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[5]")
+    @FindBy (xpath = "//*[@id=\"team-mate-info\"]/p[7]")
     private WebElement fieldHobbies;
 
     @FindBy (id = "next-photo")
@@ -88,6 +88,12 @@ public class Methods {
         } else if (pageName.equals("AboutPage")) {
             DriverConfig.getDriver().get("http://localhost:4200/about.html");
         }
+    }
+
+    public void fieldClear_SendKeys_Save (WebElement element, String key) {
+        element.clear();
+        element.sendKeys(key);
+        getSaveButton().click();
     }
 
 }
