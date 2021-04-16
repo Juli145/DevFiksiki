@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Getter
@@ -71,6 +72,35 @@ public class MethodsQ {
     public void openMW(){
         getAddQuestionButton().click();
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
+    }
+
+    public void addQuestion(String text, String theme, String answer, String fileType){
+        String currentFileType = getFileTypeFilter().getText();
+        System.out.println(currentFileType);
+        getAddQuestionButton().click();
+        MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
+        getQuestionField().click();
+        getQuestionField().sendKeys(text);
+        Select dropdown = new Select(DriverConfig.driver.findElement(By.id("selectTheme")));
+        dropdown.selectByVisibleText(theme);
+        if(answer.equals("false")){ getAnswerFalse().click(); }
+        if(!fileType.equals(currentFileType)) {
+            switch (fileType) {
+                case ("CSV"):
+                    getCSV_checkBox().click();
+                    break;
+                case ("JSON"):
+                    getJSON_checkBox().click();
+                    break;
+                case ("XML"):
+                    getXML_checkBox().click();
+                    break;
+                case ("YAML"):
+                    getYAML_checkBox().click();
+                    break;
+            }
+        }
+        getCreateButtonNewQuestion().click();
     }
 
 
