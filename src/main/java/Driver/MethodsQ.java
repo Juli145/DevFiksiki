@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static org.openqa.selenium.remote.ErrorCodes.TIMEOUT;
@@ -274,5 +276,32 @@ public class MethodsQ {
             Assert.assertNotNull(getYAML_checkBox().getAttribute("checked"));
         }
         getCancelButtonNewQuestion().click();
+    }
+
+    public void checkFilterByTopic (String theme, String text) throws InterruptedException {
+        chooseTheme("All themes");
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(text));
+        chooseTheme(theme);
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(text));
+        String [] themeList = new String[]{"HTML", "CSS", "JS", "React", "OOP"};
+        for (int i = 0; i < themeList.length; i++) {
+            if (!theme.equals(themeList[i])) {
+                chooseTheme(themeList[i]);
+                Thread.sleep(500);
+                Assert.assertFalse(DriverConfig.driver.getPageSource().contains(text));
+            }
+        }
+    }
+
+    public void checkPageForFiveElementsAndDelete (String first, String second, String third, String fourth, String fifth) throws InterruptedException {
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(first));
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(second));
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(third));
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(fourth));
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(fifth));
+        for (int i = 0; i < 5; i++) {
+            deleteLastAddedQuestion();
+            Thread.sleep(500);
+        }
     }
 }

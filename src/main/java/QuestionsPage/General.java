@@ -64,7 +64,7 @@ public class General {
 
     @Test
     public void test6_check_questionElements() {
-        methodsQ.addQuestion("Test", "HTML", "", "");
+        methodsQ.addQuestion("Test", "HTML", "", "JSON");
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         methodsQ.chooseTheme("All themes");
         methodsQ.checkQuestionAdded("Test", "true", "HTML");
@@ -73,7 +73,7 @@ public class General {
 
     @Test
     public void test7_checkDeleteQuestionButton() {
-        methodsQ.addQuestion("Test", "HTML", "", "");
+        methodsQ.addQuestion("Test", "HTML", "", "JSON");
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         action.moveToElement(methodsQ.getFirstQuestion()).build().perform();
         Assert.assertTrue("Button delete is not displayed",
@@ -93,7 +93,7 @@ public class General {
     @Test
     public void test9_checkTitle_textOfQuestion() {
         String title = "Test test test";
-        methodsQ.addQuestion(title, "HTML", "", "");
+        methodsQ.addQuestion(title, "HTML", "", "JSON");
         methodsQ.checkLastQuestionTitle(title);
         methodsQ.deleteLastAddedQuestion();
     }

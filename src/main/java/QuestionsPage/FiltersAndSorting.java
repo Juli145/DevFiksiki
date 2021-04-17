@@ -53,7 +53,7 @@ public class FiltersAndSorting {
     }
 
     @Test
-    public void test4_sortingByTimeAdded () {
+    public void test4_sortingByTimeAdded () throws InterruptedException {
         methodsQ.addQuestion("1", "JS", "true", "JSON");
         methodsQ.addQuestion("2", "JS", "true", "JSON");
         methodsQ.addQuestion("3", "JS", "true", "JSON");
@@ -63,10 +63,26 @@ public class FiltersAndSorting {
         methodsQ.checkTheSortingNumberQuestion("2", 2);
         methodsQ.checkTheSortingNumberQuestion("3", 1);
         for (int i = 0; i < 3; i++) {
-            MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCreateButtonNewQuestion());
             methodsQ.deleteLastAddedQuestion();
-            MethodsQ.waitUntilElementNotDisplayed(methodsQ.getConfirmDeleteQuestion());
+            Thread.sleep(700);
         }
+    }
+
+    @Test
+    public void test5_checkFilterByQuestionTopic () throws InterruptedException {
+        methodsQ.addQuestion("REACT topic", "REACT", "true", "JSON");
+        methodsQ.checkFilterByTopic("React", "REACT topic");
+        methodsQ.addQuestion("HTML topic", "HTML", "true", "JSON");
+        methodsQ.checkFilterByTopic("HTML", "HTML topic");
+        methodsQ.addQuestion("CSS topic", "CSS", "true", "JSON");
+        methodsQ.checkFilterByTopic("CSS", "CSS topic");
+        methodsQ.addQuestion("JS topic", "JS", "true", "JSON");
+        methodsQ.checkFilterByTopic("JS", "JS topic");
+        methodsQ.addQuestion("OOP topic", "OOP", "true", "JSON");
+        methodsQ.checkFilterByTopic("OOP", "OOP topic");
+        methodsQ.chooseTheme("All themes");
+        methodsQ.checkPageForFiveElementsAndDelete("REACT topic", "REACT topic",
+                "JS topic", "OOP topic", "CSS topic" );
     }
 
     @After
