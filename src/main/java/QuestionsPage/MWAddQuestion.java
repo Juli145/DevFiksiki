@@ -177,21 +177,21 @@ public class MWAddQuestion {
     public void test_closing_MW_with_cancelButton(){
         methodsQ.openMW();
         methodsQ.getCancelButtonNewQuestion().click();
-        MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
     @Test
     public void test_closing_MW_with_cross(){
         methodsQ.openMW();
         methodsQ.getCross().click();
-        MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
     @Test // not working
     public void test_closing_MW_byClicking_outside(){
         methodsQ.openMW();
         action.moveToElement(methodsQ.getAddQuestionButton()).build().perform();
-        MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
         @After

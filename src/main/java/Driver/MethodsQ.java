@@ -6,9 +6,12 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.remote.ErrorCodes.TIMEOUT;
 
 @Getter
 
@@ -226,5 +229,10 @@ public class MethodsQ {
                 findElement(By.cssSelector("body > div.questions > div > div > div > div:nth-child(" + number + ")"));
         String textOfQuestion = question.findElement(By.className("question__text-box")).getText();
         Assert.assertEquals(text, textOfQuestion);
+    }
+
+    public static void waitUntilElementNotDisplayed (WebElement element) {
+        WebDriverWait wait = new WebDriverWait(DriverConfig.driver, 5);
+        wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
     }
 }
