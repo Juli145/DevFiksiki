@@ -201,6 +201,14 @@ public class MWAddQuestion {
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
+    @Test
+    public void test_defaultFileType_MW () {
+        methodsQ.checkDefaultFileSystemInMW("JSON");
+        methodsQ.checkDefaultFileSystemInMW("CSV");
+        methodsQ.checkDefaultFileSystemInMW("XML");
+        methodsQ.checkDefaultFileSystemInMW("YAML");
+    }
+
         @After
     public void finish() {
         DriverConfig.quit();

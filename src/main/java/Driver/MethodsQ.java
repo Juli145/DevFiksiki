@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Locale;
+
 import static org.openqa.selenium.remote.ErrorCodes.TIMEOUT;
 
 @Getter
@@ -101,6 +103,20 @@ public class MethodsQ {
             getAnswerFalse().click();
         }
         if (!fileType.equals(currentFileType.toUpperCase())) {
+            switch (currentFileType.toUpperCase()) {
+                case ("CSV"):
+                    getCSV_checkBox().click();
+                    break;
+                case ("JSON"):
+                    getJSON_checkBox().click();
+                    break;
+                case ("XML"):
+                    getXML_checkBox().click();
+                    break;
+                case ("YAML"):
+                    getYAML_checkBox().click();
+                    break;
+            }
             switch (fileType) {
                 case ("CSV"):
                     getCSV_checkBox().click();
@@ -241,5 +257,20 @@ public class MethodsQ {
     public static void waitUntilElementNotDisplayed (WebElement element) {
         WebDriverWait wait = new WebDriverWait(DriverConfig.driver, 5);
         wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
+    }
+
+    public void checkDefaultFileSystemInMW (String fileSystem) {
+        chooseFileSystem(fileSystem);
+        openMW();
+        if (fileSystem.equals("JSON")) {
+            Assert.assertNotNull(getJSON_checkBox().getAttribute("checked"));
+        } else if (fileSystem.equals("CSV")) {
+            Assert.assertNotNull(getCSV_checkBox().getAttribute("checked"));
+        } else if (fileSystem.equals("XML")) {
+            Assert.assertNotNull(getXML_checkBox().getAttribute("checked"));
+        } else if (fileSystem.equals("YAML")) {
+            Assert.assertNotNull(getYAML_checkBox().getAttribute("checked"));
+        }
+        getCancelButtonNewQuestion().click();
     }
 }

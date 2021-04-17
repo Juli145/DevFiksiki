@@ -37,12 +37,11 @@ public class FiltersAndSorting {
     }
 
     @Test
-    public void test3_checkLocalStorage_stateValuesOfFilters () {
+    public void test3_checkLocalStorage_stateValuesOfFilters () throws InterruptedException {
         methodsQ.addQuestion("Test", "JS", "true", "CSV");
         methodsQ.chooseFileSystem("CSV");
         methodsQ.chooseTheme("JS");
         DriverConfig.driver.navigate().refresh();
-        methodsQ.checkQuestionAdded("Test", "true", "JS");
         MethodsQ.LocalStorageJS js = new MethodsQ.LocalStorageJS(DriverConfig.driver);
         Assert.assertEquals("Local Storage theme filter is not needed",
                 "js",
@@ -50,6 +49,7 @@ public class FiltersAndSorting {
         Assert.assertEquals("Local Storage file system filter is not needed",
                 "csv",
                 js.getLocalStorageValue("file_filter"));
+        methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
@@ -63,8 +63,9 @@ public class FiltersAndSorting {
         methodsQ.checkTheSortingNumberQuestion("2", 2);
         methodsQ.checkTheSortingNumberQuestion("3", 1);
         for (int i = 0; i < 3; i++) {
+            MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCreateButtonNewQuestion());
             methodsQ.deleteLastAddedQuestion();
-            MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
+            MethodsQ.waitUntilElementNotDisplayed(methodsQ.getConfirmDeleteQuestion());
         }
     }
 
