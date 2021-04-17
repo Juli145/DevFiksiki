@@ -108,7 +108,7 @@ public class MethodsQ {
 
     public void checkQuestionTheme(String theme) {
         addQuestion("some text", theme, "true", "JSON");
-        MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(getCancelButtonNewQuestion());
         Assert.assertEquals(
                 "Theme does not match",
                 theme,
@@ -193,7 +193,7 @@ public class MethodsQ {
     }
 
     public void checkLastQuestionTitle(String title) {
-        MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 1);
+        MethodsQ.waitUntilElementNotDisplayed(getCancelButtonNewQuestion());
         Assert.assertEquals(title, getFirstQuestion().findElement(By.className("question__text-box")).getText());
     }
 

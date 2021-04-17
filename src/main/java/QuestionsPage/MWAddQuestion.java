@@ -90,7 +90,7 @@ public class MWAddQuestion {
                         "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
                         "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввf",
                 "OOP", "true", "XMl");
-        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         methodsQ.checkTextOfQuestionAdded("анализ текста от ext.ru - это уникальный сервис, не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя: счетчидллррррвввввf");
         methodsQ.deleteLastAddedQuestion();
     }
@@ -116,14 +116,14 @@ public class MWAddQuestion {
     @Test
     public void test_radio_buttons_efficiency(){
         methodsQ.addQuestion("some text", "HTML", "true", "JSON");
-        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         Assert.assertEquals("Answer does not match",
                 "true",
                 methodsQ.getFirstQuestion().findElement(By.className("question__answer-value")).getText());
         methodsQ. deleteLastAddedQuestion();
 
         methodsQ.addQuestion("some text", "HTML", "false", "JSON");
-        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         Assert.assertEquals("Answer does not match",
                 "false",
                 methodsQ.getFirstQuestion().findElement(By.className("question__answer-value")).getText());
@@ -187,10 +187,17 @@ public class MWAddQuestion {
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
-    @Test // not working
+    @Test
     public void test_closing_MW_byClicking_outside(){
         methodsQ.openMW();
-        action.moveToElement(methodsQ.getAddQuestionButton()).build().perform();
+        action.moveByOffset(10, 10).click().build().perform();
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
+    }
+
+    @Test
+    public void test_closing_MW_byClicking_Esc (){
+        methodsQ.openMW();
+        methodsQ.getQuestionField().sendKeys(Keys.ESCAPE);
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
