@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
@@ -150,14 +151,14 @@ public class MWAddQuestion {
         Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
-    @Test // not working
-    public void test_createButton_disabled_with_adding_deletion_text(){
+    @Test
+    public void test_createButton_disabled_with_adding_deletion_text() {
         methodsQ.openMW();
         methodsQ.getQuestionField().click();
         methodsQ.getQuestionField().sendKeys("some text");
-        methodsQ.getQuestionField().clear();
-        methodsQ.getQuestionField().click();
-        //Assert.assertTrue(methodsQ.check_createButton_disabled());
+        methodsQ.getQuestionField().sendKeys(Keys.CONTROL + "a");
+        methodsQ.getQuestionField().sendKeys(Keys.DELETE);
+        Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
@@ -192,7 +193,7 @@ public class MWAddQuestion {
         MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 5);
     }
 
-    @After
+        @After
     public void finish() {
         DriverConfig.quit();
     }
