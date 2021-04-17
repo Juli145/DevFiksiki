@@ -103,10 +103,11 @@ public class EditingFunctionality {
         methods.getEditButton().click();
         methods.fieldClear_SendKeys_Save (methods.getFieldName(), "");
         Assert.assertTrue(methods.getSaveButton().isDisplayed());
-        methods.getFieldName().sendKeys("Алоизий Бенджи Кобвеб Дартаньян Эгб");
+        methods.getFieldName().sendKeys("Алоизий Бенджи Кобвеб Ар");
         methods.getSaveButton().click();
         Assert.assertTrue(methods.getEditButton().isDisplayed());
-        Assert.assertEquals("Алоизий Бенджи Кобвеб Д", methods.getFieldName().getAttribute("value"));
+        Assert.assertEquals("Алоизий Бенджи Кобвеб Ар", methods.getFieldName().getAttribute("value"));
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains("АЛОИЗИЙ БЕНДЖИ КОБВЕБ "));
     }
 
     @Test
@@ -131,7 +132,7 @@ public class EditingFunctionality {
         methods.getValueHobbies().sendKeys("Дивитися фантастику, рибалити куховарити");
         methods.getSaveButton().click();
         Assert.assertTrue(methods.getEditButton().isDisplayed());
-        Assert.assertEquals("Дивитися фантастику, рибалити куховар", methods.getValueHobbies().getAttribute("value"));
+        Assert.assertEquals("Дивитися фантастику, рибалити куховари", methods.getValueHobbies().getAttribute("value"));
     }
 
     @Test

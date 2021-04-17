@@ -2,8 +2,8 @@ package Driver;
 
 import lombok.Getter;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -260,6 +260,17 @@ public class MethodsQ {
     public void checkLastQuestionTitle (String title) {
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 1);
         Assert.assertEquals(title, getFirstQuestion().findElement(By.className("question__text-box")).getText());
+    }
+
+    public static class LocalStorageJS {
+        private final JavascriptExecutor js;
+        public LocalStorageJS (WebDriver webDriver) {
+            this.js = (JavascriptExecutor) webDriver;
+        }
+
+        public void clearLocalStorage () {
+            js.executeScript("window.localStorage.clear();");
+        }
     }
 
 }

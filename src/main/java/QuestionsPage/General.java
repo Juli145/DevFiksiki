@@ -4,10 +4,10 @@ import Driver.DriverConfig;
 import Driver.Methods;
 import Driver.MethodsQ;
 import org.junit.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.Select;
+
 
 
 public class General {
@@ -98,6 +98,21 @@ public class General {
         methodsQ.addQuestion(title, "HTML", "", "");
         methodsQ.checkLastQuestionTitle(title);
         methodsQ.deleteLastAddedQuestion();
+    }
+
+    @Test
+    public void test10_filtersByDefault () {
+        MethodsQ.LocalStorageJS js = new MethodsQ.LocalStorageJS(DriverConfig.driver);
+        js.clearLocalStorage();
+        DriverConfig.driver.navigate().refresh();
+        Select dropdownFileSystem = new Select(methodsQ.getFileTypeFilter());
+        Assert.assertEquals("Default file system filter is not JSON",
+                "JSON",
+                dropdownFileSystem.getFirstSelectedOption().getText());
+        Select dropdownTheme = new Select(methodsQ.getThemeFilter());
+        Assert.assertEquals("Default theme filter is not All themes",
+                "All themes",
+                dropdownTheme.getFirstSelectedOption().getText());
     }
 
     @After
