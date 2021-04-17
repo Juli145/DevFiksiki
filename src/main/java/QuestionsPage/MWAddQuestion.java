@@ -100,7 +100,8 @@ public class MWAddQuestion {
         methodsQ.addQuestion("анализ текста от ext.ru - это уникальный сервис, " +
                         "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
                         "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввfj",
-                "OOP", "true", "XMl"); Assert.assertTrue(methodsQ.check_createButton_disabled());
+                "OOP", "true", "XMl");
+        Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
