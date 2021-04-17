@@ -163,7 +163,18 @@ public class MWAddQuestion {
         //Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
-
+    @Test
+    public void test_after_adding_fields_are_cleared(){
+        methodsQ.addQuestion("some text", "OOP", "false", "CSV");
+        methodsQ.getAddQuestionButton().click();
+        methodsQ.getQuestionField().click();
+        methodsQ.getQuestionField().sendKeys("some text");
+        Assert.assertEquals(
+                "Field is not empty",
+                "",
+                methodsQ.getQuestionField().getText()
+        );
+    }
 
 
 //        @After
