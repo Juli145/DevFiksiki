@@ -86,6 +86,8 @@ public class MethodsQ {
     @FindBy(id = "cancel-delete-question")
     private WebElement cancelDeleteQuestion;
 
+    @FindBy(id = "closePU")
+    private WebElement crossDeleteQuestionMW;
 
     public void openMW() {
         getAddQuestionButton().click();
