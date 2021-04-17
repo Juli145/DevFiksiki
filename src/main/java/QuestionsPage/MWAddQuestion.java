@@ -132,8 +132,7 @@ public class MWAddQuestion {
 
     @Test
     public void test_buttonCreate_disabled_without_chosen_filetype(){
-        methodsQ.getAddQuestionButton().click();
-        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        methodsQ.openMW();
         methodsQ.getQuestionField().click();
         methodsQ.getQuestionField().sendKeys("some text");
         methodsQ.getJSON_checkBox().click();
@@ -142,20 +141,20 @@ public class MWAddQuestion {
 
     @Test
     public void test_createButton_disabled_without_text(){
-        methodsQ.getAddQuestionButton().click();
+        methodsQ.openMW();
         Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
     public void test_createButton_disabled_with_spaces(){
-        methodsQ.getAddQuestionButton().click();
+        methodsQ.openMW();
         methodsQ.getQuestionField().sendKeys("           ");
         Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test // not working
     public void test_createButton_disabled_with_adding_deletion_text(){
-        methodsQ.getAddQuestionButton().click();
+        methodsQ.openMW();
         methodsQ.getQuestionField().click();
         methodsQ.getQuestionField().sendKeys("some text");
         methodsQ.getQuestionField().clear();
@@ -164,11 +163,10 @@ public class MWAddQuestion {
     }
 
     @Test
-    public void test_after_adding_fields_are_cleared(){
-        methodsQ.addQuestion("some text", "OOP", "false", "CSV");
+    public void test_after_adding_question_fields_are_cleared(){
+        methodsQ.openMW();
+        methodsQ.addQuestion("Test", "OOP", "false", "CSV");
         methodsQ.getAddQuestionButton().click();
-        methodsQ.getQuestionField().click();
-        methodsQ.getQuestionField().sendKeys("some text");
         Assert.assertEquals(
                 "Field is not empty",
                 "",
@@ -176,6 +174,11 @@ public class MWAddQuestion {
         );
     }
 
+    @Test
+    public void test_closing_MW_with_cancelButton (){
+
+
+    }
 
 //        @After
 //    public void finish() {

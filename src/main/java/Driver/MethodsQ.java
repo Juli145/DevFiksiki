@@ -76,8 +76,7 @@ public class MethodsQ {
 
     public void addQuestion(String text, String theme, String answer, String fileType){
         String currentFileType = getFileTypeFilter().getAttribute("value");
-        getAddQuestionButton().click();
-        MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
+        openMW();
         getQuestionField().click();
         getQuestionField().sendKeys(text);
         Select dropdown = new Select(DriverConfig.driver.findElement(By.id("selectTheme")));
