@@ -113,86 +113,10 @@ public class MethodsQ {
         deleteLastAddedQuestion();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public boolean check_createButton_disabled(){
+        getCreateButtonNewQuestion().click();
+        return getCross().isDisplayed();
+    }
 
     @FindBy(css = "body > div.questions__panel > div > label:nth-child(1)")
     private WebElement nameFilterFileType;
@@ -279,5 +203,4 @@ public class MethodsQ {
             js.executeScript("window.localStorage.clear();");
         }
     }
-
 }

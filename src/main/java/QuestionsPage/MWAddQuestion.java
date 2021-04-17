@@ -3,9 +3,12 @@ package QuestionsPage;
 import Driver.DriverConfig;
 import Driver.Methods;
 import Driver.MethodsQ;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
 
 public class MWAddQuestion {
@@ -98,12 +101,7 @@ public class MWAddQuestion {
         methodsQ.getQuestionField().sendKeys("анализ текста от ext.ru - это уникальный сервис, " +
                 "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
                 "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввfj");
-        methodsQ.getCreateButtonNewQuestion().click();
-        Assert.assertTrue(
-                "Cross is not visible",
-                methodsQ.getCross().isDisplayed()
-        );
-        methodsQ.deleteLastAddedQuestion();
+        Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
@@ -115,9 +113,60 @@ public class MWAddQuestion {
         methodsQ.checkQuestionTheme("OOP");
     }
 
+    @Test
+    public void test_radio_buttons_efficiency(){
+        methodsQ.addQuestion("some text", "HTML", "true", "JSON");
+        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        Assert.assertEquals("Answer does not match",
+                "true",
+                methodsQ.getFirstQuestion().findElement(By.className("question__answer-value")).getText());
+        methodsQ. deleteLastAddedQuestion();
+
+        methodsQ.addQuestion("some text", "HTML", "false", "JSON");
+        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        Assert.assertEquals("Answer does not match",
+                "false",
+                methodsQ.getFirstQuestion().findElement(By.className("question__answer-value")).getText());
+        methodsQ. deleteLastAddedQuestion();
+    }
+
+    @Test
+    public void test_buttonCreate_disabled_without_chosen_filetype(){
+        methodsQ.getAddQuestionButton().click();
+        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        methodsQ.getQuestionField().click();
+        methodsQ.getQuestionField().sendKeys("some text");
+        methodsQ.getJSON_checkBox().click();
+        Assert.assertTrue(methodsQ.check_createButton_disabled());
+    }
+
+    @Test
+    public void test_createButton_disabled_without_text(){
+        methodsQ.getAddQuestionButton().click();
+        Assert.assertTrue(methodsQ.check_createButton_disabled());
+    }
+
+    @Test
+    public void test_createButton_disabled_with_spaces(){
+        methodsQ.getAddQuestionButton().click();
+        methodsQ.getQuestionField().sendKeys("           ");
+        Assert.assertTrue(methodsQ.check_createButton_disabled());
+    }
+
+    @Test // not working
+    public void test_createButton_disabled_with_adding_deletion_text(){
+        methodsQ.getAddQuestionButton().click();
+        methodsQ.getQuestionField().click();
+        methodsQ.getQuestionField().sendKeys("some text");
+        methodsQ.getQuestionField().clear();
+        methodsQ.getQuestionField().click();
+        //Assert.assertTrue(methodsQ.check_createButton_disabled());
+    }
 
 
-    //    @After
+
+
+//        @After
 //    public void finish() {
 //        DriverConfig.quit();
 //    }
