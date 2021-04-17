@@ -10,8 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Locale;
-
 @Getter
 
 public class MethodsQ {
@@ -104,7 +102,16 @@ public class MethodsQ {
         getCreateButtonNewQuestion().click();
     }
 
-
+    public void checkQuestionTheme(String theme){
+        addQuestion("some text", theme, "true","JSON");
+        MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
+        Assert.assertEquals(
+                "Theme does not match",
+                theme,
+                getFirstQuestion().findElement(By.className("question__theme-value")).getText()
+        );
+        deleteLastAddedQuestion();
+    }
 
 
 

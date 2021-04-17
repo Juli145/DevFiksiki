@@ -79,15 +79,16 @@ public class MWAddQuestion {
 
 
     @Test
-    public void test_255symbols_in_question_field_and_three_dots() throws InterruptedException {
+    public void test_255symbols_in_question_field_and_three_dots(){
         methodsQ.openMW();
         methodsQ.getQuestionField().click();
         methodsQ.getQuestionField().sendKeys("анализ текста от ext.ru - это уникальный сервис, " +
                 "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
                 "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввf");
         methodsQ.getCreateButtonNewQuestion().click();
-        Thread.sleep(300);
+        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
         methodsQ.checkTextOfQuestionAdded("анализ текста от ext.ru - это уникальный сервис, не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя: счетчидллррррвввввf");
+        methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
@@ -102,11 +103,16 @@ public class MWAddQuestion {
                 "Cross is not visible",
                 methodsQ.getCross().isDisplayed()
         );
+        methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
     public void test_topic_choice(){
-        methodsQ.addQuestion("some text", "CSS", "true","JSON");
+        methodsQ.checkQuestionTheme("CSS");
+        methodsQ.checkQuestionTheme("HTML");
+        methodsQ.checkQuestionTheme("JS");
+        methodsQ.checkQuestionTheme("REACT");
+        methodsQ.checkQuestionTheme("OOP");
     }
 
 
