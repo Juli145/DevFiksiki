@@ -65,7 +65,7 @@ public class General {
     @Test
     public void test6_check_questionElements() {
         methodsQ.addQuestion("Test", "HTML", "", "");
-        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         methodsQ.chooseTheme("All themes");
         methodsQ.checkQuestionAdded("Test", "true", "HTML");
         methodsQ.deleteLastAddedQuestion();
@@ -74,7 +74,7 @@ public class General {
     @Test
     public void test7_checkDeleteQuestionButton() {
         methodsQ.addQuestion("Test", "HTML", "", "");
-        MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         action.moveToElement(methodsQ.getFirstQuestion()).build().perform();
         Assert.assertTrue("Button delete is not displayed",
                 methodsQ.getDeleteQuestionButton().isDisplayed());

@@ -64,7 +64,7 @@ public class FiltersAndSorting {
         methodsQ.checkTheSortingNumberQuestion("3", 1);
         for (int i = 0; i < 3; i++) {
             methodsQ.deleteLastAddedQuestion();
-            MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 2);
+            MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         }
     }
 
