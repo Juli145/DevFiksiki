@@ -72,6 +72,19 @@ public class MethodsQ {
     @FindBy(css = "#close-modal-new-question")
     private WebElement cross;
 
+    @FindBy(css = "#delete-message-popup > div > div > div.popup__text > p")
+    private WebElement DQ_MW_text;
+
+    @FindBy(css = "body > div.questions > div > div > div > div:nth-child(1) > button")
+    private WebElement deleteQuestionButton;
+
+    @FindBy(id = "confirm-delete-question")
+    private WebElement confirmDeleteQuestion;
+
+    @FindBy(id = "cancel-delete-question")
+    private WebElement cancelDeleteQuestion;
+
+
     public void openMW() {
         getAddQuestionButton().click();
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
@@ -139,12 +152,6 @@ public class MethodsQ {
 
     @FindBy(css = "#question > div")
     private WebElement questionBody;
-
-    @FindBy(css = "body > div.questions > div > div > div > div:nth-child(1) > button")
-    private WebElement deleteQuestionButton;
-
-    @FindBy(id = "confirm-delete-question")
-    private WebElement confirmDeleteQuestion;
 
     @FindBy(css = "body > div.questions > div > div > div > p")
     private WebElement messageNoQuestions;
