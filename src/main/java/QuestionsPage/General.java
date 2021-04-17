@@ -9,7 +9,6 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.Select;
 
 
-
 public class General {
 
     MethodsQ methodsQ = new MethodsQ();
@@ -67,8 +66,7 @@ public class General {
     public void test6_check_questionElements() {
         methodsQ.addQuestion("Test", "HTML", "", "");
         MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
-        Select dropdown = new Select(methodsQ.getThemeFilter());
-        dropdown.selectByIndex(0);
+        methodsQ.chooseTheme("All themes");
         methodsQ.checkQuestionAdded("Test", "true", "HTML");
         methodsQ.deleteLastAddedQuestion();
     }
@@ -101,7 +99,7 @@ public class General {
     }
 
     @Test
-    public void test10_filtersByDefault () {
+    public void test10_filtersByDefault() {
         MethodsQ.LocalStorageJS js = new MethodsQ.LocalStorageJS(DriverConfig.driver);
         js.clearLocalStorage();
         DriverConfig.driver.navigate().refresh();

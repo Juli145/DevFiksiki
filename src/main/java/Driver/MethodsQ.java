@@ -69,12 +69,12 @@ public class MethodsQ {
     @FindBy(css = "#close-modal-new-question")
     private WebElement cross;
 
-    public void openMW(){
+    public void openMW() {
         getAddQuestionButton().click();
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
     }
 
-    public void addQuestion(String text, String theme, String answer, String fileType){
+    public void addQuestion(String text, String theme, String answer, String fileType) {
         String currentFileType = getFileTypeFilter().getAttribute("value");
         getAddQuestionButton().click();
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
@@ -82,8 +82,10 @@ public class MethodsQ {
         getQuestionField().sendKeys(text);
         Select dropdown = new Select(DriverConfig.driver.findElement(By.id("selectTheme")));
         dropdown.selectByVisibleText(theme);
-        if(answer.equals("false")){ getAnswerFalse().click(); }
-        if(!fileType.equals(currentFileType.toUpperCase())) {
+        if (answer.equals("false")) {
+            getAnswerFalse().click();
+        }
+        if (!fileType.equals(currentFileType.toUpperCase())) {
             switch (fileType) {
                 case ("CSV"):
                     getCSV_checkBox().click();
@@ -102,8 +104,8 @@ public class MethodsQ {
         getCreateButtonNewQuestion().click();
     }
 
-    public void checkQuestionTheme(String theme){
-        addQuestion("some text", theme, "true","JSON");
+    public void checkQuestionTheme(String theme) {
+        addQuestion("some text", theme, "true", "JSON");
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 5);
         Assert.assertEquals(
                 "Theme does not match",
@@ -113,7 +115,7 @@ public class MethodsQ {
         deleteLastAddedQuestion();
     }
 
-    public boolean check_createButton_disabled(){
+    public boolean check_createButton_disabled() {
         getCreateButtonNewQuestion().click();
         return getCross().isDisplayed();
     }
@@ -124,29 +126,29 @@ public class MethodsQ {
     @FindBy(css = "body > div.questions__panel > div > label:nth-child(3)")
     private WebElement nameFilterTheme;
 
-    @FindBy (id = "file-system")
+    @FindBy(id = "file-system")
     private WebElement fileTypeFilter;
 
-    @FindBy (id = "questions-theme")
+    @FindBy(id = "questions-theme")
     private WebElement themeFilter;
 
-    @FindBy (css = "body > div.questions > div > div > div > div:nth-child(1)")
+    @FindBy(css = "body > div.questions > div > div > div > div:nth-child(1)")
     private WebElement firstQuestion;
 
-    @FindBy (css = "#question > div")
+    @FindBy(css = "#question > div")
     private WebElement questionBody;
 
-    @FindBy (css = "body > div.questions > div > div > div > div:nth-child(1) > button")
+    @FindBy(css = "body > div.questions > div > div > div > div:nth-child(1) > button")
     private WebElement deleteQuestionButton;
 
-    @FindBy (id = "confirm-delete-question")
+    @FindBy(id = "confirm-delete-question")
     private WebElement confirmDeleteQuestion;
 
-    @FindBy (css = "body > div.questions > div > div > div > p")
+    @FindBy(css = "body > div.questions > div > div > div > p")
     private WebElement messageNoQuestions;
 
 
-    public void checkQuestionAdded (String text, String answer, String theme) {
+    public void checkQuestionAdded(String text, String answer, String theme) {
         Assert.assertEquals("Text of question added is incorrect",
                 text,
                 getFirstQuestion().findElement(By.className("question__text-box")).getText());
@@ -177,30 +179,53 @@ public class MethodsQ {
                 getFirstQuestion().findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div[3]/div[2]")).isDisplayed());
     }
 
-    public void checkTextOfQuestionAdded (String text) {
+    public void checkTextOfQuestionAdded(String text) {
         Assert.assertEquals("Text of question added is incorrect or question does not exist",
                 text,
                 getFirstQuestion().findElement(By.className("question__text-box")).getText());
     }
 
-    public void deleteLastAddedQuestion () {
+    public void deleteLastAddedQuestion() {
         getFirstQuestion().findElement(By.cssSelector("body > div.questions > div > div > div > div:nth-child(1) > button")).click();
         getConfirmDeleteQuestion().click();
     }
 
-    public void checkLastQuestionTitle (String title) {
+    public void checkLastQuestionTitle(String title) {
         MethodsQ.waitForVisibility(getCreateButtonNewQuestion(), 1);
         Assert.assertEquals(title, getFirstQuestion().findElement(By.className("question__text-box")).getText());
     }
 
     public static class LocalStorageJS {
         private final JavascriptExecutor js;
-        public LocalStorageJS (WebDriver webDriver) {
+
+        public LocalStorageJS(WebDriver webDriver) {
             this.js = (JavascriptExecutor) webDriver;
         }
 
-        public void clearLocalStorage () {
+        public void clearLocalStorage() {
             js.executeScript("window.localStorage.clear();");
         }
+
+        public String getLocalStorageValue(String key) {
+            return (String) js.executeScript(String.format(
+                    "return window.localStorage.getItem('%s');", key));
+        }
+    }
+
+    public void chooseFileSystem(String fileSystem) {
+        Select dropdownFileSystem = new Select(getFileTypeFilter());
+        dropdownFileSystem.selectByVisibleText(fileSystem);
+    }
+
+    public void chooseTheme(String theme) {
+        Select dropdownFileSystem = new Select(getThemeFilter());
+        dropdownFileSystem.selectByVisibleText(theme);
+    }
+
+    public void checkTheSortingNumberQuestion(String text, int number) {
+        WebElement question = DriverConfig.driver.
+                findElement(By.cssSelector("body > div.questions > div > div > div > div:nth-child(" + number + ")"));
+        String textOfQuestion = question.findElement(By.className("question__text-box")).getText();
+        Assert.assertEquals(text, textOfQuestion);
     }
 }
