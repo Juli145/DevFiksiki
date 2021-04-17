@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -15,6 +16,7 @@ public class MWAddQuestion {
 
     MethodsQ methodsQ = new MethodsQ();
     Methods methods = new Methods();
+    Actions action = new Actions(DriverConfig.driver);
 
     @Before
     public void setUp() {
@@ -83,12 +85,10 @@ public class MWAddQuestion {
 
     @Test
     public void test_255symbols_in_question_field_and_three_dots(){
-        methodsQ.openMW();
-        methodsQ.getQuestionField().click();
-        methodsQ.getQuestionField().sendKeys("анализ текста от ext.ru - это уникальный сервис, " +
-                "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
-                "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввf");
-        methodsQ.getCreateButtonNewQuestion().click();
+        methodsQ.addQuestion("анализ текста от ext.ru - это уникальный сервис, " +
+                        "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
+                        "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввf",
+                "OOP", "true", "XMl");
         MethodsQ.waitForVisibility(methodsQ.getCreateButtonNewQuestion(), 5);
         methodsQ.checkTextOfQuestionAdded("анализ текста от ext.ru - это уникальный сервис, не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя: счетчидллррррвввввf");
         methodsQ.deleteLastAddedQuestion();
@@ -96,12 +96,10 @@ public class MWAddQuestion {
 
     @Test
     public void test_256symbols_in_question_field(){
-        methodsQ.openMW();
-        methodsQ.getQuestionField().click();
-        methodsQ.getQuestionField().sendKeys("анализ текста от ext.ru - это уникальный сервис, " +
-                "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
-                "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввfj");
-        Assert.assertTrue(methodsQ.check_createButton_disabled());
+        methodsQ.addQuestion("анализ текста от ext.ru - это уникальный сервис, " +
+                        "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
+                        "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввfj",
+                "OOP", "true", "XMl"); Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
@@ -164,7 +162,6 @@ public class MWAddQuestion {
 
     @Test
     public void test_after_adding_question_fields_are_cleared(){
-        methodsQ.openMW();
         methodsQ.addQuestion("Test", "OOP", "false", "CSV");
         methodsQ.getAddQuestionButton().click();
         Assert.assertEquals(
@@ -175,13 +172,28 @@ public class MWAddQuestion {
     }
 
     @Test
-    public void test_closing_MW_with_cancelButton (){
-
-
+    public void test_closing_MW_with_cancelButton(){
+        methodsQ.openMW();
+        methodsQ.getCancelButtonNewQuestion().click();
+        MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 5);
     }
 
-//        @After
-//    public void finish() {
-//        DriverConfig.quit();
-//    }
+    @Test
+    public void test_closing_MW_with_cross(){
+        methodsQ.openMW();
+        methodsQ.getCross().click();
+        MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 5);
+    }
+
+    @Test // not working
+    public void test_closing_MW_byClicking_outside(){
+        methodsQ.openMW();
+        action.moveToElement(methodsQ.getAddQuestionButton()).build().perform();
+        MethodsQ.waitForVisibility(methodsQ.getAddQuestionButton(), 5);
+    }
+
+    @After
+    public void finish() {
+        DriverConfig.quit();
+    }
 }
