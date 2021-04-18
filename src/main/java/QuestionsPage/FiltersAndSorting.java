@@ -30,14 +30,14 @@ public class FiltersAndSorting {
     }
 
     @Test
-    public void test2_fileSystemFilter_amountOfSystems () {
+    public void test2_fileSystemFilter_amountOfSystems() {
         Select dropdown = new Select(methodsQ.getFileTypeFilter());
         List<WebElement> elementCount = dropdown.getOptions();
         Assert.assertEquals(4, elementCount.size());
     }
 
     @Test
-    public void test3_checkLocalStorage_stateValuesOfFilters () throws InterruptedException {
+    public void test3_checkLocalStorage_stateValuesOfFilters() throws InterruptedException {
         methodsQ.addQuestion("Test", "JS", "true", "CSV");
         methodsQ.chooseFileSystem("CSV");
         methodsQ.chooseTheme("JS");
@@ -53,7 +53,7 @@ public class FiltersAndSorting {
     }
 
     @Test
-    public void test4_sortingByTimeAdded () throws InterruptedException {
+    public void test4_sortingByTimeAdded() throws InterruptedException {
         methodsQ.addQuestion("1", "JS", "true", "JSON");
         methodsQ.addQuestion("2", "JS", "true", "JSON");
         methodsQ.addQuestion("3", "JS", "true", "JSON");
@@ -69,7 +69,7 @@ public class FiltersAndSorting {
     }
 
     @Test
-    public void test5_checkFilterByQuestionTopic () throws InterruptedException {
+    public void test5_checkFilterByQuestionTopic() throws InterruptedException {
         methodsQ.addQuestion("REACT topic", "REACT", "true", "JSON");
         methodsQ.checkFilterByTopic("React", "REACT topic");
         methodsQ.addQuestion("HTML topic", "HTML", "true", "JSON");
@@ -82,7 +82,21 @@ public class FiltersAndSorting {
         methodsQ.checkFilterByTopic("OOP", "OOP topic");
         methodsQ.chooseTheme("All themes");
         methodsQ.checkPageForFiveElementsAndDelete("REACT topic", "REACT topic",
-                "JS topic", "OOP topic", "CSS topic" );
+                "JS topic", "OOP topic", "CSS topic");
+    }
+
+    @Test
+    public void test6_checkFilterByFileSystem() throws InterruptedException {
+        methodsQ.addQuestion("YAML file system", "HTML", "true", "YAML");
+        methodsQ.checkFilterByFileSystem("YAML file system", "YAML");
+        methodsQ.addQuestion("CSV file system", "HTML", "true", "CSV");
+        methodsQ.checkFilterByFileSystem("CSV file system", "CSV");
+        methodsQ.addQuestion("JSON file system", "HTML", "true", "JSON");
+        methodsQ.checkFilterByFileSystem("JSON file system", "JSON");
+        methodsQ.addQuestion("XML file system", "HTML", "true", "XML");
+        methodsQ.checkFilterByFileSystem("XML file system", "XML");
+        methodsQ.createQuestionWithAllFileSystems("all filters");
+        methodsQ.checkPageByFileSystemAllAndDelete("all filters");
     }
 
     @After

@@ -304,4 +304,58 @@ public class MethodsQ {
             Thread.sleep(500);
         }
     }
+
+    public void checkFilterByFileSystem (String text, String fileSystem) throws InterruptedException {
+        chooseTheme("All themes");
+        chooseFileSystem(fileSystem);
+        Assert.assertTrue(DriverConfig.driver.getPageSource().contains(text));
+        String [] fileSystems = new String[]{"JSON", "CSV", "XML", "YAML"};
+        for (int i = 0; i < fileSystems.length; i++) {
+            if (!fileSystem.equals(fileSystems[i])) {
+                chooseFileSystem(fileSystems[i]);
+                Thread.sleep(500);
+                Assert.assertFalse(DriverConfig.driver.getPageSource().contains(text));
+            }
+        }
+    }
+
+    public void createQuestionWithAllFileSystems (String text) {
+        String currentFileType = getFileTypeFilter().getAttribute("value");
+        openMW();
+        getQuestionField().click();
+        getQuestionField().sendKeys(text);
+        String [] fileSystems = new String[]{"JSON", "CSV", "XML", "YAML"};
+        for (int i = 0; i < fileSystems.length; i++) {
+            if (!currentFileType.toUpperCase().equals(fileSystems[i])) {
+                switch (fileSystems[i]) {
+                    case ("CSV"):
+                        getCSV_checkBox().click();
+                        break;
+                    case ("JSON"):
+                        getJSON_checkBox().click();
+                        break;
+                    case ("XML"):
+                        getXML_checkBox().click();
+                        break;
+                    case ("YAML"):
+                        getYAML_checkBox().click();
+                        break;
+                }
+            }
+        }
+        getCreateButtonNewQuestion().click();
+    }
+
+    public void checkPageByFileSystemAllAndDelete (String text) throws InterruptedException {
+        String[] fileSystems = new String[]{"JSON", "CSV", "XML", "YAML"};
+        for (int i = 0; i < fileSystems.length; i++) {
+            chooseFileSystem(fileSystems[i]);
+            Thread.sleep(400);
+            Assert.assertTrue(DriverConfig.driver.getPageSource().contains(text));
+            deleteLastAddedQuestion();
+            Thread.sleep(400);
+            deleteLastAddedQuestion();
+            Thread.sleep(400);
+        }
+    }
 }
