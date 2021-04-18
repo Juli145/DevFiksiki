@@ -176,6 +176,9 @@ public class MethodsQ {
     @FindBy(css = "body > div.questions > div > div > div > p")
     private WebElement messageNoQuestions;
 
+    @FindBy (css = "body > section > div > div > p")
+    private WebElement mainTextAboutPage;
+
 
     public void checkQuestionAdded(String text, String answer, String theme) {
         Assert.assertEquals("Text of question added is incorrect",
