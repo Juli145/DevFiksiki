@@ -84,14 +84,14 @@ public class MWAddQuestion {
     }
 
 
-    @Test
-    public void test_255symbols_in_question_field_and_three_dots(){
-        methodsQ.addQuestion("анализ текста от ext.ru - это уникальный сервис, " +
+    @Test // не понимаю почему он не удаляется
+    public void test_255symbols_in_question_field_and_three_dots() throws InterruptedException {
+        methodsQ.addQuestion("255sym testта от ext.ru - это уникальный сервис, " +
                         "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
                         "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввf",
-                "OOP", "true", "XMl");
+                "OOP", "true", "JSON");
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
-        methodsQ.checkTextOfQuestionAdded("анализ текста от ext.ru - это уникальный сервис, не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя: счетчидллррррвввввf");
+        methodsQ.checkTextOfQuestionAdded("255sym testта от ext.ru - это уникальный сервис, не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя: счетчидллррррвввввf");
         methodsQ.deleteLastAddedQuestion();
     }
 
@@ -171,6 +171,10 @@ public class MWAddQuestion {
                 "",
                 methodsQ.getQuestionField().getText()
         );
+        methodsQ.getCross().click();
+        Select dropdown = new Select(DriverConfig.driver.findElement(By.id("file-system")));
+        dropdown.selectByVisibleText("CSV");
+        methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
