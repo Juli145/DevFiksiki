@@ -139,15 +139,17 @@ public class MethodsQ {
         getCreateButtonNewQuestion().click();
     }
 
-    public void checkQuestionTheme(String theme) {
-        addQuestion("some text", theme, "true", "JSON");
+    public void checkQuestionTheme(String theme) throws InterruptedException {
+        addQuestion("Add question test5", theme, "true", "JSON");
         MethodsQ.waitUntilElementNotDisplayed(getCancelButtonNewQuestion());
         Assert.assertEquals(
                 "Theme does not match",
                 theme,
-                getFirstQuestion().findElement(By.className("question__theme-value")).getText()
+                getFirstQuestion().findElement(By.className("question__theme-value")).getAttribute("textContent")
         );
+        Thread.sleep(300);
         deleteLastAddedQuestion();
+        Thread.sleep(300);
     }
 
     public boolean check_createButton_disabled() {

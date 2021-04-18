@@ -16,6 +16,8 @@ public class MWDeleteQuestion {
     public void setUp() {
         DriverConfig.initialize();
         methods.openPage("QuestionsPage");
+        methodsQ.addQuestion("delete question", "OOP", "true", "JSON");
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
     @Test
@@ -26,6 +28,7 @@ public class MWDeleteQuestion {
                 "Question field is not visible",
                 methodsQ.getConfirmDeleteQuestion().isDisplayed()
         );
+        methodsQ.getCrossDeleteQuestionMW().click();
     }
 
     @Test
@@ -36,6 +39,7 @@ public class MWDeleteQuestion {
                 "Are you sure you want to delete this question?",
                 methodsQ.getDQ_MW_text().getAttribute("textContent")
         );
+        methodsQ.getCrossDeleteQuestionMW().click();
     }
 
     @Test
@@ -46,6 +50,7 @@ public class MWDeleteQuestion {
                 "Confirm delete button is not visible",
                 methodsQ.getConfirmDeleteQuestion().isDisplayed()
         );
+        methodsQ.getCrossDeleteQuestionMW().click();
     }
 
     @Test
@@ -56,6 +61,7 @@ public class MWDeleteQuestion {
                 "Confirm delete button is not visible",
                 methodsQ.getCancelDeleteQuestion().isDisplayed()
         );
+        methodsQ.getCrossDeleteQuestionMW().click();
     }
 
     @Test
@@ -81,7 +87,9 @@ public class MWDeleteQuestion {
     }
 
     @After
-    public void finish() {
+    public void finish() throws InterruptedException {
+        methodsQ.deleteLastAddedQuestion();
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getConfirmDeleteQuestion());
         DriverConfig.quit();
     }
 }

@@ -26,7 +26,7 @@ public class MWAddQuestion {
     }
 
     @Test
-    public void test_openMW(){
+    public void test1_openMW(){
         methodsQ.openMW();
         Assert.assertTrue(
                 "Question field is not visible",
@@ -35,7 +35,7 @@ public class MWAddQuestion {
     }
 
     @Test
-    public void test_check_MW_elements(){
+    public void test2_check_MW_elements(){
         methodsQ.openMW();
         Assert.assertTrue(
                 "Question field is not visible",
@@ -84,20 +84,21 @@ public class MWAddQuestion {
     }
 
 
-    @Test // не понимаю почему он не удаляется
-    public void test_255symbols_in_question_field_and_three_dots() throws InterruptedException {
+    @Test
+    public void test3_255symbols_in_question_field_and_three_dots() throws InterruptedException {
         methodsQ.addQuestion("255sym testта от ext.ru - это уникальный сервис, " +
                         "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
                         "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввf",
                 "OOP", "true", "JSON");
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         methodsQ.checkTextOfQuestionAdded("255sym testта от ext.ru - это уникальный сервис, не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя: счетчидллррррвввввf");
+       Thread.sleep(500);
         methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
-    public void test_256symbols_in_question_field(){
-        methodsQ.addQuestion("анализ текста от ext.ru - это уникальный сервис, " +
+    public void test4_256symbols_in_question_field(){
+        methodsQ.addQuestion("256sym текста от ext.ru - это уникальный сервис, " +
                         "не имеющий аналогов. возможность подсветки «воды», заспамленности и ключей в тексте позволяет " +
                         "сделать анализ текста интерактивным и легким для восприятия. анализ текста включает в себя:  счетчидллррррвввввfj",
                 "OOP", "true", "XMl");
@@ -105,24 +106,25 @@ public class MWAddQuestion {
     }
 
     @Test
-    public void test_topic_choice(){
+    public void test5_topic_choice() throws InterruptedException {
         methodsQ.checkQuestionTheme("CSS");
         methodsQ.checkQuestionTheme("HTML");
-        methodsQ.checkQuestionTheme("JS");
-        methodsQ.checkQuestionTheme("REACT");
         methodsQ.checkQuestionTheme("OOP");
+        methodsQ.checkQuestionTheme("REACT");
+        methodsQ.checkQuestionTheme("JS");
     }
 
     @Test
-    public void test_radio_buttons_efficiency(){
-        methodsQ.addQuestion("some text", "HTML", "true", "JSON");
+    public void test6_radio_buttons_efficiency() throws InterruptedException {
+        methodsQ.addQuestion("Add question 6 test1", "HTML", "true", "JSON");
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         Assert.assertEquals("Answer does not match",
                 "true",
                 methodsQ.getFirstQuestion().findElement(By.className("question__answer-value")).getText());
         methodsQ. deleteLastAddedQuestion();
 
-        methodsQ.addQuestion("some text", "HTML", "false", "JSON");
+        methodsQ.addQuestion("Add question 6 test2", "HTML", "false", "JSON");
+        Thread.sleep(500);
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
         Assert.assertEquals("Answer does not match",
                 "false",
@@ -131,29 +133,29 @@ public class MWAddQuestion {
     }
 
     @Test
-    public void test_buttonCreate_disabled_without_chosen_filetype(){
+    public void test7_buttonCreate_disabled_without_chosen_filetype(){
         methodsQ.openMW();
         methodsQ.getQuestionField().click();
-        methodsQ.getQuestionField().sendKeys("some text");
+        methodsQ.getQuestionField().sendKeys("Add question 7 test");
         methodsQ.getJSON_checkBox().click();
         Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
-    public void test_createButton_disabled_without_text(){
+    public void test8_createButton_disabled_without_text(){
         methodsQ.openMW();
         Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
-    public void test_createButton_disabled_with_spaces(){
+    public void test9_createButton_disabled_with_spaces(){
         methodsQ.openMW();
         methodsQ.getQuestionField().sendKeys("           ");
         Assert.assertTrue(methodsQ.check_createButton_disabled());
     }
 
     @Test
-    public void test_createButton_disabled_with_adding_deletion_text() {
+    public void test10_createButton_disabled_with_adding_deletion_text() {
         methodsQ.openMW();
         methodsQ.getQuestionField().click();
         methodsQ.getQuestionField().sendKeys("some text");
@@ -163,8 +165,8 @@ public class MWAddQuestion {
     }
 
     @Test
-    public void test_after_adding_question_fields_are_cleared(){
-        methodsQ.addQuestion("Test", "OOP", "false", "CSV");
+    public void test11_after_adding_question_fields_are_cleared() throws InterruptedException {
+        methodsQ.addQuestion("Add question 11 test", "OOP", "false", "CSV");
         methodsQ.getAddQuestionButton().click();
         Assert.assertEquals(
                 "Field is not empty",
@@ -174,46 +176,47 @@ public class MWAddQuestion {
         methodsQ.getCross().click();
         Select dropdown = new Select(DriverConfig.driver.findElement(By.id("file-system")));
         dropdown.selectByVisibleText("CSV");
+        Thread.sleep(300);
         methodsQ.deleteLastAddedQuestion();
     }
 
     @Test
-    public void test_closing_MW_with_cancelButton(){
+    public void test12_closing_MW_with_cancelButton(){
         methodsQ.openMW();
         methodsQ.getCancelButtonNewQuestion().click();
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
     @Test
-    public void test_closing_MW_with_cross(){
+    public void test13_closing_MW_with_cross(){
         methodsQ.openMW();
         methodsQ.getCross().click();
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
     @Test
-    public void test_closing_MW_byClicking_outside(){
+    public void test14_closing_MW_byClicking_outside(){
         methodsQ.openMW();
         action.moveByOffset(10, 10).click().build().perform();
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
     @Test
-    public void test_closing_MW_byClicking_Esc (){
+    public void test15_closing_MW_byClicking_Esc (){
         methodsQ.openMW();
         methodsQ.getQuestionField().sendKeys(Keys.ESCAPE);
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getCancelButtonNewQuestion());
     }
 
     @Test
-    public void test_defaultFileType_MW () {
+    public void test16_defaultFileType_MW () {
         methodsQ.checkDefaultFileSystemInMW("JSON");
         methodsQ.checkDefaultFileSystemInMW("CSV");
         methodsQ.checkDefaultFileSystemInMW("XML");
         methodsQ.checkDefaultFileSystemInMW("YAML");
     }
 
-        @After
+    @After
     public void finish() {
         DriverConfig.quit();
     }
