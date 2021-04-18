@@ -91,10 +91,11 @@ public class General {
     }
 
     @Test
-    public void test9_checkTitle_textOfQuestion() {
+    public void test9_checkTitle_textOfQuestion() throws InterruptedException {
         String title = "Test test test";
         methodsQ.addQuestion(title, "HTML", "", "JSON");
         methodsQ.checkLastQuestionTitle(title);
+        Thread.sleep(400);
         methodsQ.deleteLastAddedQuestion();
     }
 
