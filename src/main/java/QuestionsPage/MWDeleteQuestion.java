@@ -31,7 +31,7 @@ public class MWDeleteQuestion {
         methodsQ.getCrossDeleteQuestionMW().click();
     }
 
-    @Test
+    @Test // не удаляется вопрос
     public void test_check_MW_DQ_text(){
         methodsQ.getDeleteQuestionButton().click();
         Assert.assertEquals(
@@ -40,9 +40,10 @@ public class MWDeleteQuestion {
                 methodsQ.getDQ_MW_text().getAttribute("textContent")
         );
         methodsQ.getCrossDeleteQuestionMW().click();
+        MethodsQ.waitUntilElementNotDisplayed(methodsQ.getConfirmDeleteQuestion());
     }
 
-    @Test
+    @Test // не удаляется вопрос
     public void test_check_MW_DQ_confirmButton(){
         methodsQ.getDeleteQuestionButton().click();
         MethodsQ.waitForVisibility(methodsQ.getConfirmDeleteQuestion(), 5);
@@ -53,7 +54,7 @@ public class MWDeleteQuestion {
         methodsQ.getCrossDeleteQuestionMW().click();
     }
 
-    @Test
+    @Test // не удаляется вопрос
     public void test_check_MW_DQ_cancelButton(){
         methodsQ.getDeleteQuestionButton().click();
         MethodsQ.waitForVisibility(methodsQ.getConfirmDeleteQuestion(), 5);
@@ -64,7 +65,7 @@ public class MWDeleteQuestion {
         methodsQ.getCrossDeleteQuestionMW().click();
     }
 
-    @Test
+    @Test // не удаляется вопрос
     public void test_check_closing_MW_DQ_byClicking_cancelButton(){
         methodsQ.getDeleteQuestionButton().click();
         MethodsQ.waitForVisibility(methodsQ.getConfirmDeleteQuestion(), 5);
@@ -88,6 +89,7 @@ public class MWDeleteQuestion {
 
     @After
     public void finish() throws InterruptedException {
+        Thread.sleep(500);
         methodsQ.deleteLastAddedQuestion();
         MethodsQ.waitUntilElementNotDisplayed(methodsQ.getConfirmDeleteQuestion());
         DriverConfig.quit();
